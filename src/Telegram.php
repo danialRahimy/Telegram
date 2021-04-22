@@ -1,6 +1,6 @@
 <?php
 
-namespace DanialRahimy;
+namespace DanialRahimy\Telegram;
 
 use DanialRahimy\Telegram\TelegramInterface;
 

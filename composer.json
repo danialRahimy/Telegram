@@ -2,14 +2,19 @@
     "name": "danialrahimy/telegram",
     "type": "library",
     "license": "MIT",
-    "require": {
-        "php": "^7"
-    },
     "authors": [
         {
             "name": "danial rahimy",
             "email": "daniel_rahimi@outlook.com"
         }
     ],
-    "minimum-stability": "stable"
+    "minimum-stability": "stable",
+    "require": {
+        "php": "^7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Danialrahimy\\Telegram\\": "src/"
+        }
+    }
 }
