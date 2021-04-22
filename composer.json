@@ -1,6 +1,7 @@
 {
     "name": "danialrahimy/telegram",
     "type": "library",
+    "license": "MIT",
     "require": {
         "php": "^7"
     },
