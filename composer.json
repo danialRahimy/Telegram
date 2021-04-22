@@ -1,0 +1,14 @@
+{
+    "name": "danialrahimy/telegram",
+    "type": "library",
+    "require": {
+        "php": "7^"
+    },
+    "authors": [
+        {
+            "name": "danial rahimy",
+            "email": "daniel_rahimi@outlook.com"
+        }
+    ],
+    "minimum-stability": "stable"
+}
