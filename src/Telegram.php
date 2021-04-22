@@ -2,8 +2,6 @@
 
 namespace DanialRahimy\Telegram;
 
-use DanialRahimy\Telegram\TelegramInterface;
-
 class Telegram implements TelegramInterface
 {
 
@@ -24,7 +22,26 @@ class Telegram implements TelegramInterface
 
     public function sendTextMessage(string $message, string $to) : array
     {
-        $url = $this->apiUrlKey . "/sendMessage?chat_id=" . $to . "&text=" . urlencode($message) . "&parse_mode=html";
+        $parameters = http_build_query([
+            'chat_id' => $to,
+            'text' => $message,
+            'parse_mode' => 'html'
+        ]);
+        $url = $this->apiUrlKey . '/sendMessage?' . $parameters;
+        $dataJson = file_get_contents($url);
+
+        return $this->makeOutput($dataJson);
+    }
+
+    public function sendPhoto(string $img, string $to, string $caption = '') : array
+    {
+        $parameters = http_build_query([
+            'chat_id' => $to,
+            'photo' => $img,
+            'caption' => $caption,
+            'parse_mode' => 'html'
+        ]);
+        $url = $this->apiUrlKey . '/sendPhoto?' . $parameters;
         $dataJson = file_get_contents($url);
 
         return $this->makeOutput($dataJson);
@@ -39,5 +56,4 @@ class Telegram implements TelegramInterface
 
         return $dataArray;
     }
-
 }
