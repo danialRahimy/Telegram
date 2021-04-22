@@ -2,7 +2,7 @@
     "name": "danialrahimy/telegram",
     "type": "library",
     "require": {
-        "php": "7^"
+        "php": "^7"
     },
     "authors": [
         {
