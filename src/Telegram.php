@@ -1,10 +1,10 @@
 <?php
 
 namespace DanialRahimy\Telegram;
+use \DanialRahimy\Telegram\Telegram\TelegramInterface;
 
 class Telegram implements TelegramInterface
 {
-
     protected $apiKey;
     protected $apiUrlKeyRaw = 'https://api.telegram.org';
     protected $apiUrlKey;

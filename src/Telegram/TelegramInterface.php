@@ -1,8 +1,8 @@
 <?php
 
-namespace DanialRahimy\Telegram;
+namespace DanialRahimy\Telegram\Telegram;
 
-interface TelegramInterface 
+interface TelegramInterface
 {
 
     public function __construct(string $apiKey);
