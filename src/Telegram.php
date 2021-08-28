@@ -1,7 +1,9 @@
 <?php
 
 namespace DanialRahimy\Telegram;
-use \DanialRahimy\Telegram\Telegram\TelegramInterface;
+use DanialRahimy\Telegram\Telegram\TelegramInterface;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 
 class Telegram implements TelegramInterface
 {
@@ -27,6 +29,7 @@ class Telegram implements TelegramInterface
      * @param string $message
      * @param string $to
      * @return array
+     * @throws GuzzleException
      */
     public function sendTextMessage(string $message, string $to) : array
     {
@@ -36,7 +39,7 @@ class Telegram implements TelegramInterface
             'parse_mode' => 'html'
         ]);
         $url = $this->apiUrlKey . '/sendMessage?' . $parameters;
-        $dataJson = $this->curl_get_contents($url);
+        $dataJson = $this->do($url);
 
         return $this->makeOutput($dataJson);
     }
@@ -46,6 +49,7 @@ class Telegram implements TelegramInterface
      * @param string $to
      * @param string $caption
      * @return array
+     * @throws GuzzleException
      */
     public function sendPhoto(string $img, string $to, string $caption = '') : array
     {
@@ -56,7 +60,7 @@ class Telegram implements TelegramInterface
             'parse_mode' => 'html'
         ]);
         $url = $this->apiUrlKey . '/sendPhoto?' . $parameters;
-        $dataJson = $this->curlGetContents($url);
+        $dataJson = $this->do($url);
 
         return $this->makeOutput($dataJson);
     }
@@ -64,17 +68,14 @@ class Telegram implements TelegramInterface
     /**
      * @param $url
      * @return string
+     * @throws GuzzleException
      */
-    protected function curlGetContents($url) : string
+    protected function do($url) : string
     {
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_URL, $url);
-        $data = curl_exec($ch);
-        curl_close($ch);
+        $client = new Client();
+        $response = $client->get($url);
 
-        return $data;
+        return $response->getBody();
     }
 
     /**
@@ -85,7 +86,7 @@ class Telegram implements TelegramInterface
     {
         $dataArray = json_decode($dataJson, true);
 
-        if (is_array($dataArray))
+        if (!is_array($dataArray))
             $dataArray = [];
 
         return $dataArray;
